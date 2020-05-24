@@ -57,7 +57,7 @@ function init() {
   var loader = new THREE.FBXLoader();
 
 
-  loader.load("assets/Booth1.22.fbx", booth => {
+  loader.load("assets/Booth.fbx", booth => {
     
     booth.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
@@ -100,7 +100,118 @@ function init() {
       scene.add(Girl);
     });
   });
+   buttons = [];
+  loader.load("assets/Discuss.fbx", Discuss => {    
+    Discuss.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Discuss.name = "Discuss";
+      Discuss.scale.set(0.6, 0.6, 0.6);
+      Discuss.position.set(1.10,2.24,3.22);
+      scene.add(Discuss);
+      buttons.push(Discuss);
+    });
+  });
 
+  loader.load("assets/Explore.fbx", Explore => {    
+    Explore.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Explore.name = "Explore";
+      Explore.scale.set(0.6, 0.6, 0.6);
+      Explore.position.set(3.58,4.26,-1.62);
+      scene.add(Explore);
+      buttons.push(Explore);
+    });
+  });
+
+  loader.load("assets/Listen.fbx", Listen => {    
+    Listen.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Listen.name = "Listen";
+      Listen.scale.set(0.6, 0.6, 0.6);
+      Listen.position.set(1.10,2.90,3.22);
+      scene.add(Listen);
+      buttons.push(Listen);
+    });
+  });
+
+  loader.load("assets/Play.fbx", Play => {    
+    Play.traverse(function (child) {
+      if (Play instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Play.name = "Play";
+      Play.scale.set(0.6, 0.6, 0.6);
+      Play.position.set(2.10,2.12,0);
+      scene.add(Play);
+      buttons.push(Play);
+    });
+  });
+
+  loader.load("assets/Read.fbx", Read => {    
+    Read.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Read.name = "Read";
+      Read.scale.set(0.6, 0.6, 0.6);
+      Read.position.set(-1.14,2.58,1.82);
+      scene.add(Read);
+      buttons.push(Read);
+    });
+  });
+
+  loader.load("assets/Talk.fbx", Talk => {    
+    Talk.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Talk.name = "Talk";
+      Talk.scale.set(0.6, 0.6, 0.6);
+      Talk.position.set(1.10,2.56,3.22);
+      scene.add(Talk);
+      buttons.push(Talk);
+    });
+  });
+
+  loader.load("assets/Watch.fbx", Watch => {    
+    Watch.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Watch.name = "Watch";
+      Watch.scale.set(0.6, 0.6, 0.6);
+      Watch.position.set(-2.28,2.88,2.10);
+      scene.add(Watch);
+      buttons.push(Watch);
+    });
+  });
   
 
 
@@ -112,20 +223,31 @@ animate();
 function animate() {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
-
+  if(camera.position.z > 30)
+  setButtons(false);
+  else
+  setButtons(true);
   controls.update();
 }
 init();
 
+
+function setButtons(bool)
+{
+  buttons.forEach(button => {
+    button.visible = bool;
+  });
+}
+
 function createLight() {
   directionalLight = new THREE.DirectionalLight(0xffffff);
   directionalLight.position.set(0,0,200);
-  directionalLight.intensity = 0.5;
+  directionalLight.intensity = 0.25;
   directionalLight.castShadow = true;
-  directionalLight.shadow.camera.top = 20;
-  directionalLight.shadow.camera.bottom = -20;
-  directionalLight.shadow.camera.left = - 20;
-  directionalLight.shadow.camera.right = 20;
+  // directionalLight.shadow.camera.top = 20;
+  // directionalLight.shadow.camera.bottom = -20;
+  // directionalLight.shadow.camera.left = - 20;
+  // directionalLight.shadow.camera.right = 20;
   scene.add(directionalLight);
 
   light = new THREE.DirectionalLight(0xffffff);
@@ -141,13 +263,13 @@ function createLight() {
 
   let spotLight2 = new THREE.SpotLight(0xffffff);
   spotLight2.intensity = 0.3;
-  spotLight2.position.set(40, 20, 3);
+  spotLight2.position.set(0, 20, 3);
   spotLight2.lookAt(0, 0, 0);
   scene.add(spotLight2);
 
   let ambientLight = new THREE.AmbientLight(0xffdcd4 );
   ambientLight.intensity = 0.5;
-  ambientLight.position.set(3, 20, -20);
+  ambientLight.position.set(0,0,0);
   ambientLight.lookAt(2, 0, 0);
   scene.add(ambientLight);
 }
