@@ -3,17 +3,24 @@ let scene, camera, renderer;
 function init() {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 30000);
-  camera.position.set(0, 7, 45);
-  camera.rotation.set(-0.07,0,0);
-
+ 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
-//   let controls = new THREE.OrbitControls(camera, renderer.domElement);
-//   controls.minDistance = 5;
-//   controls.maxDistance = 1500;
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.minDistance = 5;
+  controls.maxDistance = 1500;
+ 
 
+
+
+  camera.position.set(0, 7, 45);
+  camera.rotation.set(-0.07,0,0);
+  controls.update();
+
+  controls.enableKeys = true;
+  controls.enableDamping = true;
   let materialArray = [];
   let texture_ft = new THREE.TextureLoader().load('assets/bluecloud_ft.jpg');
   let texture_bk = new THREE.TextureLoader().load('assets/bluecloud_bk.jpg');
@@ -105,6 +112,8 @@ animate();
 function animate() {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
+
+  controls.update();
 }
 init();
 
