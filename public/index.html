@@ -27,12 +27,12 @@
       controls.maxDistance = 1500;
 
       let materialArray = [];
-      let texture_ft = new THREE.TextureLoader().load('assets/clouds1_east.jpg');
-      let texture_bk = new THREE.TextureLoader().load('assets/clouds1_west.jpg');
-      let texture_up = new THREE.TextureLoader().load('assets/clouds1_up.jpg');//OK
-      let texture_dn = new THREE.TextureLoader().load('assets/clouds1_down.jpg');//OK
-      let texture_rt = new THREE.TextureLoader().load('assets/clouds1_north.jpg');//OK
-      let texture_lf = new THREE.TextureLoader().load('assets/clouds1_south.jpg');
+      let texture_ft = new THREE.TextureLoader().load('assets/bluecloud_ft.jpg');
+      let texture_bk = new THREE.TextureLoader().load('assets/bluecloud_bk.jpg');
+      let texture_up = new THREE.TextureLoader().load('assets/bluecloud_up.jpg');//OK
+      let texture_dn = new THREE.TextureLoader().load('assets/bluecloud_dn.jpg');//OK
+      let texture_rt = new THREE.TextureLoader().load('assets/bluecloud_rt.jpg');//OK
+      let texture_lf = new THREE.TextureLoader().load('assets/bluecloud_lf.jpg');
 
       materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft }));
       materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bk }));
@@ -130,9 +130,9 @@
 
 
   </script>
-  <script src="/__/firebase/7.14.5/firebase-app.js"></script>
+  <!-- <script src="/__/firebase/7.14.5/firebase-app.js"></script>
 <script src="/__/firebase/7.14.5/firebase-analytics.js"></script>
-<script src="/__/firebase/init.js"></script>
+<script src="/__/firebase/init.js"></script> -->
 
 
 </body>
