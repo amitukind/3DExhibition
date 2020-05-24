@@ -2,8 +2,8 @@
 let scene, camera, renderer;
 function init() {
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 45, 30000);
-  camera.position.set(0, 7, 50);
+  camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 30000);
+  camera.position.set(0, 7, 45);
   camera.rotation.set(-0.07,0,0);
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -11,7 +11,7 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
 //   let controls = new THREE.OrbitControls(camera, renderer.domElement);
-//   controls.minDistance = 50;
+//   controls.minDistance = 5;
 //   controls.maxDistance = 1500;
 
   let materialArray = [];
@@ -79,6 +79,21 @@ function init() {
   });
 
 
+  loader.load("assets/Girl1.fbx", Girl => {
+    
+    Girl.traverse(function (child) {
+      if (child instanceof THREE.Object3D) {
+        for (let subChild of child.children) {
+          subChild.castShadow = true;
+          subChild.receiveShadow = true;
+        }
+      }
+      Girl.scale.set(0.02, 0.02, 0.02);
+      Girl.position.set(-1.5,0.01,2);
+      scene.add(Girl);
+    });
+  });
+
   
 
 
@@ -121,7 +136,7 @@ function createLight() {
   spotLight2.lookAt(0, 0, 0);
   scene.add(spotLight2);
 
-  let ambientLight = new THREE.AmbientLight(0xffffff);
+  let ambientLight = new THREE.AmbientLight(0xffdcd4 );
   ambientLight.intensity = 0.5;
   ambientLight.position.set(3, 20, -20);
   ambientLight.lookAt(2, 0, 0);
