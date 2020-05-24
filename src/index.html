@@ -1,30 +1,140 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>3D Exhibition Demo 1.0</title>
-    <meta name="author" content="Amit Verma">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<head>
+  <meta charset=UTF-8 />
+  <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
-  <body>
-    Amit test server Three.JS initializing . . . . .
+<body>
+  <script src="lib/three.js"></script>
+  <script src="lib/OrbitControls.js"></script>
+  <script src="lib/inflate.min.js"></script>
+  <script src="lib/FBXLoader.js"></script>
+
+  <script>
+    let scene, camera, renderer;
+    function init() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 45, 30000);
+      camera.position.set(-48, 64, 142);
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      let controls = new THREE.OrbitControls(camera, renderer.domElement);
+      //controls.addEventListener('change', renderer);
+      controls.minDistance = 50;
+      controls.maxDistance = 1500;
+
+      let materialArray = [];
+      let texture_ft = new THREE.TextureLoader().load('assets/clouds1_east.jpg');
+      let texture_bk = new THREE.TextureLoader().load('assets/clouds1_west.jpg');
+      let texture_up = new THREE.TextureLoader().load('assets/clouds1_up.jpg');//OK
+      let texture_dn = new THREE.TextureLoader().load('assets/clouds1_down.jpg');//OK
+      let texture_rt = new THREE.TextureLoader().load('assets/clouds1_north.jpg');//OK
+      let texture_lf = new THREE.TextureLoader().load('assets/clouds1_south.jpg');
+
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft }));
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bk }));
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_up }));
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_dn }));
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_rt }));
+      materialArray.push(new THREE.MeshBasicMaterial({ map: texture_lf }));
+
+      for (let i = 0; i < 6; i++)
+        materialArray[i].side = THREE.BackSide;
+      let skyboxGeo = new THREE.BoxGeometry(10000, 10000, 10000);
+      let skybox = new THREE.Mesh(skyboxGeo, materialArray);
+      scene.add(skybox);
+      animate();
+
+
+
+
+
+      createLight();
 
 
 
 
 
 
+      var loader = new THREE.FBXLoader();
+      modelUrl = "assets/Booth1.22.fbx";
+
+      loader.load(modelUrl, model => {
+        console.log(model);
+        model.traverse(function (child) {
+          if (child instanceof THREE.Object3D) {
+            for (let subChild of child.children) {
+              subChild.castShadow = true;
+              subChild.receiveShadow = true;
+              // if(subChild.name == "pPlane3") {
+              //     subChild.receiveShadow = false;
+              // }
+            }
+          }
+          model.scale.set(10, 10, 10);
+          scene.add(model);
+        });
+      });
 
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="/__/firebase/7.14.5/firebase-app.js"></script>
 
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+
+    }
+    function animate() {
+      renderer.render(scene, camera);
+      requestAnimationFrame(animate);
+    }
+    init();
+
+    function createLight() {
+      directionalLight = new THREE.DirectionalLight(0xffffff);
+      directionalLight.position.set(0,0,200);
+      directionalLight.intensity = 0.5;
+      directionalLight.castShadow = true;
+      directionalLight.shadow.camera.top = 20;
+      directionalLight.shadow.camera.bottom = -20;
+      directionalLight.shadow.camera.left = - 20;
+      directionalLight.shadow.camera.right = 20;
+      scene.add(directionalLight);
+
+      light = new THREE.DirectionalLight(0xffffff);
+      light.intensity = 0.2;
+      light.position.set(0, 200, 300);
+      scene.add(light);
+
+      let spotLight1 = new THREE.SpotLight(0xffffff);
+      spotLight1.intensity = 0.3;
+      spotLight1.position.set(-10, 20, 3);
+      spotLight1.lookAt(0, 0, 0);
+      scene.add(spotLight1);
+
+      let spotLight2 = new THREE.SpotLight(0xffffff);
+      spotLight2.intensity = 0.3;
+      spotLight2.position.set(40, 20, 3);
+      spotLight2.lookAt(0, 0, 0);
+      scene.add(spotLight2);
+
+      let ambientLight = new THREE.AmbientLight(0xffffff);
+      ambientLight.intensity = 0.5;
+      ambientLight.position.set(3, 20, -20);
+      ambientLight.lookAt(2, 0, 0);
+      scene.add(ambientLight);
+    }
+
+
+
+
+
+  </script>
+  <!-- <script src="/__/firebase/7.14.5/firebase-app.js"></script>
 <script src="/__/firebase/7.14.5/firebase-analytics.js"></script>
+<script src="/__/firebase/init.js"></script> -->
 
-<!-- Initialize Firebase -->
-<script src="/__/firebase/init.js"></script>
-  </body>
+
+</body>
+
 </html>
