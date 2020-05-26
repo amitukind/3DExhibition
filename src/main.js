@@ -272,14 +272,11 @@ function init() {
 
 loadingManager.onLoad = function () {
 
-  console.log("All Loaded");
-  //scene.add(MasterBooth);
+ 
   var MasterBooth2 = MasterBooth.clone(true);
   MasterBooth2.position.x = 11;
-  //scene.add(MasterBooth2);
   var MasterBooth3 = MasterBooth.clone(true);
   MasterBooth3.position.x = -11;
-  //scene.add(MasterBooth3);
   var row1 = new THREE.Group();
   row1.add(MasterBooth);
   row1.add(MasterBooth2);
@@ -291,10 +288,49 @@ loadingManager.onLoad = function () {
   col.position.x = -22;
   col.rotation.y = Math.PI / 2;
   col.position.z = 15/2;
-  scene.add(col);
-  scene.add(row1);
-  scene.add(row2);
   
+
+  var BigCol = new THREE.Group();
+  BigCol.add(col);
+  BigCol.add(row1);
+  BigCol.add(row2);
+  scene.add(BigCol);
+
+  var BigCol2 = BigCol.clone(true);
+  BigCol2.position.z = 25;
+  scene.add(BigCol2);
+
+  var BigCol3 = BigCol.clone(true);
+  BigCol3.position.z = 50;
+  scene.add(BigCol3);
+
+
+
+  var BigCol4 = BigCol.clone(true);
+  BigCol4.position.z = 15;
+  BigCol4.position.x = 35;
+  BigCol4.rotation.y = Math.PI;
+  scene.add(BigCol4);
+
+
+
+  var BigCol5 = BigCol2.clone(true);
+  BigCol5.position.z = 40;
+  BigCol5.position.x = 35;
+  BigCol5.rotation.y = Math.PI;
+  scene.add(BigCol5);
+
+
+
+  var BigCol6 = BigCol3.clone(true);
+  BigCol6.position.z = 65;
+  BigCol6.position.x = 35;
+  BigCol6.rotation.y = Math.PI;
+  scene.add(BigCol6);
+
+
+
+
 }
 
 
