@@ -80,7 +80,7 @@ function init() {
           subChild.receiveShadow = true;
         }
       }
-      fan.scale.set(1, 1, 1);
+      fan.scale.set(0.92,0.92,0.92);
       scene.add(fan);
     });
   });
@@ -107,11 +107,20 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
+         
+          
         }
       }
       Discuss.name = "Discuss";
       Discuss.scale.set(0.6, 0.6, 0.6);
       Discuss.position.set(1.10,2.24,3.22);
+      
+
       scene.add(Discuss);
       buttons.push(Discuss);
     });
@@ -123,6 +132,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Explore.name = "Explore";
@@ -139,6 +152,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Listen.name = "Listen";
@@ -155,6 +172,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Play.name = "Play";
@@ -171,6 +192,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Read.name = "Read";
@@ -187,6 +212,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Talk.name = "Talk";
@@ -203,6 +232,10 @@ function init() {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
+          subChild.material[0].transparent = true;
+          subChild.material[0].opacity = 0.6;
+          subChild.material[1].transparent = true;
+          subChild.material[1].opacity = 0.6;
         }
       }
       Watch.name = "Watch";
