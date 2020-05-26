@@ -6,26 +6,30 @@ MasterBooth = new THREE.Group();
 
 function init() {
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 30000);
+  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 30000);
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
   controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.minDistance = 5;
-  controls.maxDistance = 1500;
+  controls.minDistance = 10;
+  controls.maxDistance = 150;
   controls.keyPanSpeed = 15;
+  controls.minPolarAngle = Math.PI/2;
+  controls.maxPolarAngle = Math.PI/2;
+  controls.enableKeys = true;
+  //controls.enableDamping = true;
+  
 
 
 
 
-  camera.position.set(0, 7, 45);
-  camera.rotation.set(-0.07, 0, 0);
+  // camera.position.set(0, 7, 45);
+  // camera.rotation.set(-0.07, 0, 0);
   controls.update();
 
-  controls.enableKeys = true;
-  controls.enableDamping = true;
+
   let materialArray = [];
   let texture_ft = new THREE.TextureLoader().load('assets/bluecloud_ft.jpg');
   let texture_bk = new THREE.TextureLoader().load('assets/bluecloud_bk.jpg');
@@ -329,7 +333,13 @@ loadingManager.onLoad = function () {
   scene.add(BigCol6);
 
 
-
+  var yUp = -1;
+  BigCol.position.y = yUp;
+  BigCol2.position.y = yUp;
+  BigCol3.position.y = yUp;
+  BigCol4.position.y = yUp;
+  BigCol5.position.y = yUp;
+  BigCol6.position.y = yUp;
 
 }
 
