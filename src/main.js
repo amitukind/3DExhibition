@@ -1,9 +1,13 @@
 
 let scene, camera, renderer;
+
+loadingManager = new THREE.LoadingManager();
+MasterBooth = new THREE.Group();
+
 function init() {
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(20, window.innerWidth / window.innerHeight, 1, 30000);
- 
+
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
@@ -11,12 +15,13 @@ function init() {
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.minDistance = 5;
   controls.maxDistance = 1500;
- 
+  controls.keyPanSpeed = 15;
+
 
 
 
   camera.position.set(0, 7, 45);
-  camera.rotation.set(-0.07,0,0);
+  camera.rotation.set(-0.07, 0, 0);
   controls.update();
 
   controls.enableKeys = true;
@@ -53,12 +58,12 @@ function init() {
 
 
 
+  var loader1 = new THREE.FBXLoader(loadingManager);
 
-  var loader = new THREE.FBXLoader();
 
 
-  loader.load("assets/Booth.fbx", booth => {
-    
+  loader1.load("assets/Booth.fbx", booth => {
+
     booth.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -67,12 +72,14 @@ function init() {
         }
       }
       booth.scale.set(1, 1, 1);
-      scene.add(booth);
+      MasterBooth.add(booth);
     });
   });
 
-  loader.load("assets/fan.fbx", fan => {
-    
+
+  var loader2 = new THREE.FBXLoader(loadingManager);
+  loader2.load("assets/fan.fbx", fan => {
+
     fan.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -80,14 +87,15 @@ function init() {
           subChild.receiveShadow = true;
         }
       }
-      fan.scale.set(0.92,0.92,0.92);
-      scene.add(fan);
+      fan.scale.set(0.92, 0.92, 0.92);
+      MasterBooth.add(fan);
     });
   });
 
 
-  loader.load("assets/Girl1.fbx", Girl => {
-    
+  var loader3 = new THREE.FBXLoader(loadingManager);
+  loader3.load("assets/Girl1.fbx", Girl => {
+
     Girl.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -96,37 +104,41 @@ function init() {
         }
       }
       Girl.scale.set(0.02, 0.02, 0.02);
-      Girl.position.set(-1.5,0.01,2);
-      scene.add(Girl);
+      Girl.position.set(-1.5, 0.01, 2);
+      MasterBooth.add(Girl);
     });
   });
-   buttons = [];
-  loader.load("assets/Discuss.fbx", Discuss => {    
+
+  var loader4 = new THREE.FBXLoader(loadingManager);
+  loader4.load("assets/Discuss.fbx", Discuss => {
     Discuss.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
           subChild.castShadow = true;
           subChild.receiveShadow = true;
-          
+
           subChild.material[0].transparent = true;
           subChild.material[0].opacity = 0.6;
           subChild.material[1].transparent = true;
           subChild.material[1].opacity = 0.6;
-         
-          
+
+
         }
       }
       Discuss.name = "Discuss";
       Discuss.scale.set(0.6, 0.6, 0.6);
-      Discuss.position.set(1.10,2.24,3.22);
-      
+      Discuss.position.set(1.10, 2.24, 3.22);
 
-      scene.add(Discuss);
-      buttons.push(Discuss);
+
+      MasterBooth.add(Discuss);
+
     });
   });
 
-  loader.load("assets/Explore.fbx", Explore => {    
+
+  var loader5 = new THREE.FBXLoader(loadingManager);
+
+  loader5.load("assets/Explore.fbx", Explore => {
     Explore.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -140,13 +152,14 @@ function init() {
       }
       Explore.name = "Explore";
       Explore.scale.set(0.6, 0.6, 0.6);
-      Explore.position.set(3.58,4.26,-1.62);
-      scene.add(Explore);
-      buttons.push(Explore);
+      Explore.position.set(3.58, 4.26, -1.62);
+      MasterBooth.add(Explore);
+
     });
   });
 
-  loader.load("assets/Listen.fbx", Listen => {    
+  var loader6 = new THREE.FBXLoader(loadingManager);
+  loader6.load("assets/Listen.fbx", Listen => {
     Listen.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -160,13 +173,14 @@ function init() {
       }
       Listen.name = "Listen";
       Listen.scale.set(0.6, 0.6, 0.6);
-      Listen.position.set(1.10,2.90,3.22);
-      scene.add(Listen);
-      buttons.push(Listen);
+      Listen.position.set(1.10, 2.90, 3.22);
+      MasterBooth.add(Listen);
+
     });
   });
 
-  loader.load("assets/Play.fbx", Play => {    
+  var loader7 = new THREE.FBXLoader(loadingManager);
+  loader7.load("assets/Play.fbx", Play => {
     Play.traverse(function (child) {
       if (Play instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -180,13 +194,14 @@ function init() {
       }
       Play.name = "Play";
       Play.scale.set(0.6, 0.6, 0.6);
-      Play.position.set(2.10,2.12,0);
-      scene.add(Play);
-      buttons.push(Play);
+      Play.position.set(2.10, 2.12, 0);
+      MasterBooth.add(Play);
+
     });
   });
 
-  loader.load("assets/Read.fbx", Read => {    
+  var loader8 = new THREE.FBXLoader(loadingManager);
+  loader8.load("assets/Read.fbx", Read => {
     Read.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -200,13 +215,14 @@ function init() {
       }
       Read.name = "Read";
       Read.scale.set(0.6, 0.6, 0.6);
-      Read.position.set(-1.14,2.58,1.82);
-      scene.add(Read);
-      buttons.push(Read);
+      Read.position.set(-1.14, 2.58, 1.82);
+      MasterBooth.add(Read);
+
     });
   });
 
-  loader.load("assets/Talk.fbx", Talk => {    
+  var loader9 = new THREE.FBXLoader(loadingManager);
+  loader9.load("assets/Talk.fbx", Talk => {
     Talk.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -220,13 +236,14 @@ function init() {
       }
       Talk.name = "Talk";
       Talk.scale.set(0.6, 0.6, 0.6);
-      Talk.position.set(1.10,2.56,3.22);
-      scene.add(Talk);
-      buttons.push(Talk);
+      Talk.position.set(1.10, 2.56, 3.22);
+      MasterBooth.add(Talk);
+
     });
   });
 
-  loader.load("assets/Watch.fbx", Watch => {    
+  var loader10 = new THREE.FBXLoader(loadingManager);
+  loader10.load("assets/Watch.fbx", Watch => {
     Watch.traverse(function (child) {
       if (child instanceof THREE.Object3D) {
         for (let subChild of child.children) {
@@ -240,41 +257,63 @@ function init() {
       }
       Watch.name = "Watch";
       Watch.scale.set(0.6, 0.6, 0.6);
-      Watch.position.set(-2.28,2.88,2.10);
-      scene.add(Watch);
-      buttons.push(Watch);
+      Watch.position.set(-2.28, 2.88, 2.10);
+      MasterBooth.add(Watch);
+
     });
   });
-  
 
 
 
-animate();
+
+  animate();
 
 }
+
+loadingManager.onLoad = function () {
+
+  console.log("All Loaded");
+  //scene.add(MasterBooth);
+  var MasterBooth2 = MasterBooth.clone(true);
+  MasterBooth2.position.x = 11;
+  //scene.add(MasterBooth2);
+  var MasterBooth3 = MasterBooth.clone(true);
+  MasterBooth3.position.x = -11;
+  //scene.add(MasterBooth3);
+  var row1 = new THREE.Group();
+  row1.add(MasterBooth);
+  row1.add(MasterBooth2);
+  row1.add(MasterBooth3);
+  var row2 = row1.clone(true);
+  row2.position.z = 15;
+  row2.rotation.y = Math.PI;
+  var col = MasterBooth.clone(true);
+  col.position.x = -22;
+  col.rotation.y = Math.PI / 2;
+  col.position.z = 15/2;
+  scene.add(col);
+  scene.add(row1);
+  scene.add(row2);
+  
+}
+
+
+
 
 function animate() {
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
-  if(camera.position.z > 30)
-  setButtons(false);
-  else
-  setButtons(true);
+
   controls.update();
 }
 init();
 
 
-function setButtons(bool)
-{
-  buttons.forEach(button => {
-    button.visible = bool;
-  });
-}
+
 
 function createLight() {
   directionalLight = new THREE.DirectionalLight(0xffffff);
-  directionalLight.position.set(0,0,200);
+  directionalLight.position.set(0, 0, 200);
   directionalLight.intensity = 0.25;
   directionalLight.castShadow = true;
   // directionalLight.shadow.camera.top = 20;
@@ -300,9 +339,9 @@ function createLight() {
   spotLight2.lookAt(0, 0, 0);
   scene.add(spotLight2);
 
-  let ambientLight = new THREE.AmbientLight(0xffdcd4 );
+  let ambientLight = new THREE.AmbientLight(0xffdcd4);
   ambientLight.intensity = 0.5;
-  ambientLight.position.set(0,0,0);
+  ambientLight.position.set(0, 0, 0);
   ambientLight.lookAt(2, 0, 0);
   scene.add(ambientLight);
 }
