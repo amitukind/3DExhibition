@@ -16,8 +16,8 @@ function init() {
   controls.minDistance = 15;
   controls.maxDistance = 150;
   controls.keyPanSpeed = 15;
-  controls.minPolarAngle = Math.PI/2;
-  controls.maxPolarAngle = Math.PI/2;
+  // controls.minPolarAngle = Math.PI/2;
+  // controls.maxPolarAngle = Math.PI/2;
   controls.enableKeys = true;
   // controls.panSpeed = 0.01;
   controls.rotateSpeed = 0.1; 
@@ -316,11 +316,11 @@ loadingManager.onLoad = function () {
   scene.add(BigCol);
 
   var BigCol2 = BigCol.clone(true);
-  BigCol2.position.z = 20;
+  BigCol2.position.z = 25;
   scene.add(BigCol2);
 
   var BigCol3 = BigCol.clone(true);
-  BigCol3.position.z = 40;
+  BigCol3.position.z = 50;
   scene.add(BigCol3);
 
 
@@ -334,7 +334,7 @@ loadingManager.onLoad = function () {
 
 
   var BigCol5 = BigCol2.clone(true);
-  BigCol5.position.z = 25;
+  BigCol5.position.z = 30;
   BigCol5.position.x = 35;
   BigCol5.rotation.y = Math.PI;
   scene.add(BigCol5);
@@ -342,7 +342,7 @@ loadingManager.onLoad = function () {
 
 
   var BigCol6 = BigCol3.clone(true);
-  BigCol6.position.z = 45;
+  BigCol6.position.z = 55;
   BigCol6.position.x = 35;
   BigCol6.rotation.y = Math.PI;
   scene.add(BigCol6);
