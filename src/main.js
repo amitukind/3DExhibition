@@ -16,8 +16,8 @@ function init() {
   controls.minDistance = 15;
   controls.maxDistance = 150;
   controls.keyPanSpeed = 15;
-  // controls.minPolarAngle = Math.PI/2;
-  // controls.maxPolarAngle = Math.PI/2;
+  controls.minPolarAngle = Math.PI/2;
+  controls.maxPolarAngle = Math.PI/2;
   controls.enableKeys = true;
   // controls.panSpeed = 0.01;
   controls.rotateSpeed = 0.1; 
