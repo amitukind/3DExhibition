@@ -16,8 +16,8 @@ function init() {
   controls.minDistance = 10;
   controls.maxDistance = 150;
   //controls.keyPanSpeed = 15;
-  controls.minPolarAngle = Math.PI/2;
-  controls.maxPolarAngle = Math.PI/2;
+  // controls.minPolarAngle = Math.PI/2;
+  // controls.maxPolarAngle = Math.PI/2;
   controls.enableKeys = true;
   // controls.panSpeed = 0.01;
   controls.rotateSpeed = 0.1; 
@@ -278,6 +278,7 @@ function init() {
 
 loadingManager.onLoad = function () {
 
+  MasterBooth.rotation.y = Math.PI;
  
   var MasterBooth2 = MasterBooth.clone(true);
   MasterBooth2.position.x = 11;
@@ -288,12 +289,12 @@ loadingManager.onLoad = function () {
   row1.add(MasterBooth2);
   row1.add(MasterBooth3);
   var row2 = row1.clone(true);
-  row2.position.z = 15;
+  row2.position.z = 5;
   row2.rotation.y = Math.PI;
   var col = MasterBooth.clone(true);
-  col.position.x = -22;
-  col.rotation.y = Math.PI / 2;
-  col.position.z = 15/2;
+  col.position.x = -19;
+  col.rotation.y = -Math.PI/2;
+  col.position.z = 5/2;
   
 
   var BigCol = new THREE.Group();
@@ -303,17 +304,17 @@ loadingManager.onLoad = function () {
   scene.add(BigCol);
 
   var BigCol2 = BigCol.clone(true);
-  BigCol2.position.z = 25;
+  BigCol2.position.z = 20;
   scene.add(BigCol2);
 
   var BigCol3 = BigCol.clone(true);
-  BigCol3.position.z = 50;
+  BigCol3.position.z = 40;
   scene.add(BigCol3);
 
 
 
   var BigCol4 = BigCol.clone(true);
-  BigCol4.position.z = 15;
+  BigCol4.position.z = 5;
   BigCol4.position.x = 35;
   BigCol4.rotation.y = Math.PI;
   scene.add(BigCol4);
@@ -321,7 +322,7 @@ loadingManager.onLoad = function () {
 
 
   var BigCol5 = BigCol2.clone(true);
-  BigCol5.position.z = 40;
+  BigCol5.position.z = 25;
   BigCol5.position.x = 35;
   BigCol5.rotation.y = Math.PI;
   scene.add(BigCol5);
@@ -329,7 +330,7 @@ loadingManager.onLoad = function () {
 
 
   var BigCol6 = BigCol3.clone(true);
-  BigCol6.position.z = 65;
+  BigCol6.position.z = 45;
   BigCol6.position.x = 35;
   BigCol6.rotation.y = Math.PI;
   scene.add(BigCol6);
