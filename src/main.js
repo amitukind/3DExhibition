@@ -13,11 +13,11 @@ function init() {
   document.body.appendChild(renderer.domElement);
 
   controls = new THREE.OrbitControls(camera, renderer.domElement);
-  controls.minDistance = 10;
+  controls.minDistance = 15;
   controls.maxDistance = 150;
-  //controls.keyPanSpeed = 15;
-  // controls.minPolarAngle = Math.PI/2;
-  // controls.maxPolarAngle = Math.PI/2;
+  controls.keyPanSpeed = 15;
+  controls.minPolarAngle = Math.PI/2;
+  controls.maxPolarAngle = Math.PI/2;
   controls.enableKeys = true;
   // controls.panSpeed = 0.01;
   controls.rotateSpeed = 0.1; 
@@ -265,6 +265,18 @@ function init() {
       Watch.scale.set(0.6, 0.6, 0.6);
       Watch.position.set(-2.28, 2.88, 2.10);
       MasterBooth.add(Watch);
+
+    });
+  });
+
+  var loader11 = new THREE.FBXLoader(loadingManager);
+  loader11.load("assets/Spawn.fbx", Spawn => {
+    Spawn.traverse(function (child) {
+     
+      Spawn.name = "Spawn";
+      Spawn.scale.set(0.01,0.04,0.01);
+      Spawn.position.set(0,0,6);
+      MasterBooth.add(Spawn);
 
     });
   });
