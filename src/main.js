@@ -6,7 +6,7 @@ MasterBooth = new THREE.Group();
 
 function init() {
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 30000);
+  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 30000);
 
   renderer = new THREE.WebGLRenderer({ antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -15,10 +15,12 @@ function init() {
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.minDistance = 10;
   controls.maxDistance = 150;
-  controls.keyPanSpeed = 15;
+  //controls.keyPanSpeed = 15;
   controls.minPolarAngle = Math.PI/2;
   controls.maxPolarAngle = Math.PI/2;
   controls.enableKeys = true;
+  // controls.panSpeed = 0.01;
+  controls.rotateSpeed = 0.1; 
   //controls.enableDamping = true;
   
 
@@ -27,7 +29,7 @@ function init() {
 
   // camera.position.set(0, 7, 45);
   // camera.rotation.set(-0.07, 0, 0);
-  controls.update();
+  //controls.update();
 
 
   let materialArray = [];
@@ -333,7 +335,7 @@ loadingManager.onLoad = function () {
   scene.add(BigCol6);
 
 
-  var yUp = -1;
+  var yUp = -2;
   BigCol.position.y = yUp;
   BigCol2.position.y = yUp;
   BigCol3.position.y = yUp;
