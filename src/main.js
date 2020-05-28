@@ -81,7 +81,7 @@ function init() {
       MasterBooth.add(booth);
     });
   });
-
+/*
 
   var loader2 = new THREE.FBXLoader(loadingManager);
   loader2.load("assets/fan.fbx", fan => {
@@ -97,7 +97,7 @@ function init() {
       MasterBooth.add(fan);
     });
   });
-
+*/
 
   var loader3 = new THREE.FBXLoader(loadingManager);
   loader3.load("assets/Girl1.fbx", Girl => {
@@ -270,13 +270,19 @@ function init() {
   });
 
   var loader11 = new THREE.FBXLoader(loadingManager);
-  loader11.load("assets/Spawn.fbx", Spawn => {
-    Spawn.traverse(function (child) {
+  loader11.load("assets/Arrow.fbx", Arrow => {
+    Arrow.traverse(function (child) {
      
-      Spawn.name = "Spawn";
-      Spawn.scale.set(0.01,0.04,0.01);
-      Spawn.position.set(0,0,6);
-      MasterBooth.add(Spawn);
+      Arrow.name = "Arrow";
+      Arrow.scale.set(.02,.04,.04);
+      Arrow.position.set(0,0,6);
+      Arrow.rotation.y = Math.PI/2;
+      Arrow.children[0].material[0].transparent = true;
+      Arrow.children[0].material[0].opacity = 0.6;
+      Arrow.children[0].material[0].emissive = new THREE.Color("rgb(255, 60, 60)");;
+      console.log(Arrow);
+      
+      MasterBooth.add(Arrow);
 
     });
   });
