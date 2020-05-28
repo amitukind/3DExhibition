@@ -1,5 +1,6 @@
 
 let scene, camera, renderer;
+var arrows = [];
 
 loadingManager = new THREE.LoadingManager();
 MasterBooth = new THREE.Group();
@@ -110,7 +111,8 @@ function init() {
         }
       }
       Girl.scale.set(0.02, 0.02, 0.02);
-      Girl.position.set(-1.5, 0.01, 2);
+      Girl.position.set(-1.94, 0.01, 2.54);
+      Girl.rotation.set(0,0.70,0);
       MasterBooth.add(Girl);
     });
   });
@@ -275,13 +277,11 @@ function init() {
      
       Arrow.name = "Arrow";
       Arrow.scale.set(.02,.04,.04);
-      Arrow.position.set(0,0,6);
+      Arrow.position.set(0,-.66,6);
       Arrow.rotation.y = Math.PI/2;
       Arrow.children[0].material[0].transparent = true;
-      Arrow.children[0].material[0].opacity = 0.6;
+      Arrow.children[0].material[0].opacity = 1;
       Arrow.children[0].material[0].emissive = new THREE.Color("rgb(255, 60, 60)");;
-      console.log(Arrow);
-      
       MasterBooth.add(Arrow);
 
     });
@@ -362,6 +362,22 @@ loadingManager.onLoad = function () {
   BigCol5.position.y = yUp;
   BigCol6.position.y = yUp;
 
+
+
+  scene.traverse(function(child) {
+    if (child.name === "Arrow") {
+      arrows.push(child);
+      var tween = new TWEEN.Tween(child.position).to({ z: 6.2 }, 800).start();
+            tween.easing(TWEEN.Easing.Back.In);
+            tween.repeat(Infinity); 
+            tween.yoyo(true);
+            var tween2 = new TWEEN.Tween(child.children[0].material[0]).to({ opacity:0.5 }, 400).start();
+            tween2.easing(TWEEN.Easing.Back.In);
+            tween2.repeat(Infinity); 
+            tween2.yoyo(true);
+    }
+  });
+
 }
 
 
@@ -372,6 +388,7 @@ function animate() {
   requestAnimationFrame(animate);
 
   controls.update();
+  TWEEN.update();
 }
 init();
 
