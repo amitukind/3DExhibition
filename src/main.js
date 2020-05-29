@@ -27,6 +27,7 @@ function init() {
   // controls.panSpeed = 0.01;
   controls.rotateSpeed = 0.1; 
   //controls.enableDamping = true;
+  //controls.target = new THREE.Vector3(0,0,0);
   
 
 
@@ -391,12 +392,10 @@ loadingManager.onLoad = function () {
 
 function animate() {
 
-  
-  renderer.render(scene, camera);
-  requestAnimationFrame(animate);
-
-  controls.update();
   TWEEN.update();
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+  controls.update();
 }
 init();
 
@@ -423,30 +422,39 @@ function onMouseClick( event ) {
         if(intersects[ 0 ].object.name === "polymsh")
         {
           scene.updateMatrixWorld();
-          //intersects[ 0 ].object.visible =false;
+          
           var vector = new THREE.Vector3();
           vector.setFromMatrixPosition( intersects[ 0 ].object.matrixWorld );
-          console.log(intersects[ 0 ].object.parent.parent.children[8]);
-
-      
+          var tvector = new THREE.Vector3();
+          tvector.setFromMatrixPosition( intersects[ 0 ].object.parent.parent.matrixWorld );
           
           var from = camera.position.clone();
           var to = vector
           var tween = new TWEEN.Tween(from)
-            .to(to, 1000)
+            .to(to, 800)
             .easing(TWEEN.Easing.Linear.None)
             .onUpdate( function(){
               camera.position.copy(from);
               
               controls.update(); 
             })
-            .onComplete(
-              function(){
-                
-              }
-            )
             .start();
-          
+   
+
+            // var tfrom = controls.target;
+            // var tto = tvector
+            // var tween2 = new TWEEN.Tween(tfrom)
+            //   .to(tto, 1000)
+            //   .easing(TWEEN.Easing.Linear.None)
+            //   .onUpdate( function(){
+            //     controls.target = tto;
+
+                
+            //     //controls.update(); 
+            //   })
+            //   .start();
+
+            
         }
         
 
