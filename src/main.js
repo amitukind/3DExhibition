@@ -2,6 +2,10 @@
 let scene, camera, renderer;
 var arrows = [];
 
+
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
 loadingManager = new THREE.LoadingManager();
 MasterBooth = new THREE.Group();
 
@@ -78,6 +82,7 @@ function init() {
           subChild.receiveShadow = true;
         }
       }
+      booth.name = "Booth";
       booth.scale.set(1, 1, 1);
       MasterBooth.add(booth);
     });
@@ -110,6 +115,7 @@ function init() {
           subChild.receiveShadow = true;
         }
       }
+      Girl.name = "Girl";
       Girl.scale.set(0.02, 0.02, 0.02);
       Girl.position.set(-1.94, 0.01, 2.54);
       Girl.rotation.set(0,0.70,0);
@@ -367,11 +373,11 @@ loadingManager.onLoad = function () {
   scene.traverse(function(child) {
     if (child.name === "Arrow") {
       arrows.push(child);
-      var tween = new TWEEN.Tween(child.position).to({ z: 6.2 }, 800).start();
-            tween.easing(TWEEN.Easing.Back.In);
-            tween.repeat(Infinity); 
-            tween.yoyo(true);
-            var tween2 = new TWEEN.Tween(child.children[0].material[0]).to({ opacity:0.5 }, 400).start();
+      // var tween = new TWEEN.Tween(child.position).to({ z: 6.2 }, 800).start();
+      //       tween.easing(TWEEN.Easing.Back.In);
+      //       tween.repeat(Infinity); 
+      //       tween.yoyo(true);
+            var tween2 = new TWEEN.Tween(child.children[0].material[0]).to({ opacity:0.5 }, 1000).start();
             tween2.easing(TWEEN.Easing.Back.In);
             tween2.repeat(Infinity); 
             tween2.yoyo(true);
@@ -384,6 +390,8 @@ loadingManager.onLoad = function () {
 
 
 function animate() {
+
+  
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 
@@ -394,16 +402,65 @@ init();
 
 
 
+function onMouseClick( event ) {
+    event.preventDefault();
+
+    var mouseVector = new THREE.Vector2(
+         event.clientX / window.innerWidth * 2 - 1,
+        -event.clientY / window.innerHeight * 2 + 1
+    );
+
+    var raycaster = new THREE.Raycaster;
+    raycaster.setFromCamera( mouseVector, camera );
+
+    var intersects = raycaster.intersectObjects( scene.children, true );
+        
+    
+        
+    if( intersects.length > 0 ){
+
+        //console.log( intersects[ 0 ].object );
+        if(intersects[ 0 ].object.name === "polymsh")
+        {
+          scene.updateMatrixWorld();
+          //intersects[ 0 ].object.visible =false;
+          var vector = new THREE.Vector3();
+          vector.setFromMatrixPosition( intersects[ 0 ].object.matrixWorld );
+          console.log(intersects[ 0 ].object.parent.parent.children[8]);
+
+      
+          
+          var from = camera.position.clone();
+          var to = vector
+          var tween = new TWEEN.Tween(from)
+            .to(to, 1000)
+            .easing(TWEEN.Easing.Linear.None)
+            .onUpdate( function(){
+              camera.position.copy(from);
+              
+              controls.update(); 
+            })
+            .onComplete(
+              function(){
+                
+              }
+            )
+            .start();
+          
+        }
+        
+
+    }
+}
+window.addEventListener( 'mousedown', onMouseClick, false );
+
+
 
 function createLight() {
   directionalLight = new THREE.DirectionalLight(0xffffff);
   directionalLight.position.set(0, 0, 200);
   directionalLight.intensity = 0.25;
   directionalLight.castShadow = true;
-  // directionalLight.shadow.camera.top = 20;
-  // directionalLight.shadow.camera.bottom = -20;
-  // directionalLight.shadow.camera.left = - 20;
-  // directionalLight.shadow.camera.right = 20;
   scene.add(directionalLight);
 
   light = new THREE.DirectionalLight(0xffffff);
@@ -429,7 +486,5 @@ function createLight() {
   ambientLight.lookAt(2, 0, 0);
   scene.add(ambientLight);
 }
-
-
 
 window.scene = scene;
